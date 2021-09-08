@@ -42,6 +42,15 @@ path.chord {
 	<div class="demo__body">
     <input id="demo_4" type="text" name="" value="" onChange="valitse2($(this).val())">
     </div>
+    
+    
+    <div class="container">
+<button onclick="valitse1('B')">happy (8-9)</button>
+<button onclick="valitse1('D')">extremely happy (10)</button>
+</div>
+
+
+
 	<div id="div" class="ext-chord"></div>
 
 
@@ -77,12 +86,12 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
         </div>
         <h3>
           How to investigate
-          <br>super happy people?</br>
+          <br>happy people?</br>
         </h3>
         <p>In many comparison, Finland is mentioned as the happiest country in the world. <br>What makes people feel happy? <br>Are there any recipes for happiness? 
      </p>
         <p>
-        Perhaps correlations give some glues, how super happiness is related between indicators.</p>
+        Perhaps correlations give some glues, how happiness is related between indicators.</p>
       </li>
       <li class='screen'>
         <div class='media bars'>
@@ -95,7 +104,7 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
           How to use
           <br>chord diagram?</br>
         </h3>
-        <p>The chord diagram is showing relation between different indicators. All results are related only to extremely happy people.
+        <p>The chord diagram is showing relation between different indicators. All results are related only to happy people.
         </p>
         <p>
         Simple view the relations associated with an individual indicator by clicking the color wheel button next to the desired title.
@@ -112,7 +121,7 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
           How to use
           <br>sliders?</br>
         </h3>
-        <p>Narrow the display to negative or positive correlations only, by setting the left slider to -1 (only positive values are displayed), or the right slider to 1 (only negative values are displayed) on the top of the screen.</p>
+        <p>On the top of the scree, narrow displaying negative or positive correlations only, by setting the left slider to -1 (only positive coreelations are displayed), or the right slider to 1 (only negative correlations are displayed).</p>
       </li>
       <li class='screen'>
         <div class='media comm'>
@@ -126,8 +135,8 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
         <p>Example:
 <br>1. Set the right slider to 1 
 <br>2. Set the left slider to -0.4
-<br>3. Click the color button next to the "nationalist" name
-<br>4. The following four indicators have a negative relationship with the "nationalist", if the probability is in 40%.</p>
+<br>3. Click the color button next to the "Nationalist" topic
+<br>4. The following indicators have negative relationships with the "Nationalist", if the probability is set over 40%.</p>
       </li>
     </ul>
     <button class='prev-screen'>
@@ -389,6 +398,15 @@ $(function () {
         });
 });
 
+
+function valitse1(items) {
+//fitems = filet;
+//xfilet = filet;
+//mini = items.substr(0,items.indexOf(";"));
+//maxi = items.substr(items.indexOf(";")+1,4);
+diagram.render();
+valinnat([items],mini,maxi);
+}
 
 function valitse2(items) {
 //fitems = filet;
