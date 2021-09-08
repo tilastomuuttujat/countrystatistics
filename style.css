@@ -17,7 +17,7 @@ body {
 
 .open-walkthrough {
   border: 0;
-  background: #d5d5d5;
+  background: #f9f9f9;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -155,12 +155,12 @@ body {
 .walkthrough .walkthrough-footer button {
   height: 40px;
   border: 0;
-  background: #c6c6c6;
+  background: #f9f9f9;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   border-radius: 0;
-  color: white;
+  color: gray;
   flex: 1;
   font-size: 12px;
   margin: 0;
@@ -170,16 +170,16 @@ body {
   cursor: pointer;
 }
 .walkthrough .walkthrough-footer button:hover {
-  background: #c6c6c6;
+  background: #f9f9f9;
 }
 .walkthrough .walkthrough-footer button:active {
-  background: #c6c6c6;
+  background: #f9f9f9;
 }
 .walkthrough .walkthrough-footer button:disabled {
   cursor: pointer;
 }
 .walkthrough .walkthrough-footer button.finish {
-  background: #c6c6c6;
+  background: #f9f9f9;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -190,10 +190,10 @@ body {
   transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .walkthrough .walkthrough-footer button.finish:hover {
-  background: #c6c6c6;
+  background: #f9f9f9;
 }
 .walkthrough .walkthrough-footer button.finish:active {
-  background: #c6c6c6;
+  background: #f9f9f9;
 }
 .walkthrough .walkthrough-footer button.finish.active {
   transform: scale(1, 1);
