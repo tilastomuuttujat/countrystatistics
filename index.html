@@ -155,6 +155,7 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
 <!-- partial -->
 
 <script>
+
 var minval=parent.minval;
 var maxval=parent.maxval;
 var fitems=parent.fitems;
@@ -228,7 +229,7 @@ var diagram = {
 		var container = d3.select("." + diagram.opts.container_class);
 		container.selectAll("svg").remove();
 		var target_width = parseFloat(d3.select(container.node().parentNode).style("width")) / 1.4;
-		var scale = 0.75;
+		var scale = 0.55;
 		diagram.set_dimensions(target_width, diagram.opts.hw_ratio * target_width, scale)
 		diagram.elements.svg = container.append("svg")
 				.attr("width", diagram.dimensions.width * 2 * diagram.dimensions.scale)
@@ -439,7 +440,7 @@ var sitems=items;
 	}
 	
 //valinnat(fitems,minval,maxval);
-valinnat(["D"],-0.2,0.99);
+valinnat(["D"],-0.3,0.99);
 
 </script>
 </body>
