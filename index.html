@@ -55,8 +55,8 @@ path.chord {
 <div class="container">
   <button onclick="valitse3(0.05)">Chord size +</button>
   <button onclick="valitse3(-0.05)">Chord size -</button>
-  <button onclick="valitse4('25px')">Font size +</button>
-  <button onclick="valitse4('20px')">Font size -</button>
+  <button onclick="valitse4(1)">Font size +</button>
+  <button onclick="valitse4(-1)">Font size -</button>
 </div>
 
 <div class='walkthrough'>
@@ -158,6 +158,8 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
 <!-- partial -->
 	<div id="div" class="ext-chord"></div>
 <script>
+var fonts = ["15px", "17px", "19px", "21px", "23px", "25px", "27px", "29px", "31px", "33px", "35px"];
+var fontti = 5;
 var mini = -1.0;
 var maxi = 0.4;
 var minval=parent.minval;
@@ -432,7 +434,15 @@ diagram.render();
 }
 
 function valitse4(items) {
-div.style.fontSize = items;
+fontti=fontti+items
+if (fontti<0) {
+fontti = 0;
+}
+if (fontti>10) {
+fontti = 10;
+}
+
+div.style.fontSize = fonts[fontti];
 diagram.render();
 
 }
