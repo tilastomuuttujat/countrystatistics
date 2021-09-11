@@ -26,10 +26,10 @@ path.chord {
 }
 
 #div {
-      font-size: 16px;
+    font-size: 20px;
     	border-radius: 3px;
     	/*box-shadow: 0 0 5px #999;*/
-    	padding: 10px;
+    	padding: 40px;
     	pointer-events: 'none';
     	background-color: #fff;
     	position: absolute;
@@ -50,12 +50,18 @@ path.chord {
 <button onclick="valitse1('D')">extremely happy (10)</button>
 </div>
 
-
-
-	<div id="div" class="ext-chord"></div>
-
-
 <button class='open-walkthrough'>Instructions</button>
+
+<div class="container">
+  <button onclick="valitse3(0.05)">Font size +</button>
+  <button onclick="valitse4(-0.05)">Font size -</button>
+</div>
+
+
+
+
+
+
 <div class='walkthrough'>
   <div class='walkthrough-pagination'>
     <a class='dot active'></a>
@@ -153,18 +159,20 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
   </div>
 </div>
 <!-- partial -->
-
+	<div id="div" class="ext-chord"></div>
 <script>
-
+var mini = -1.0;
+var maxi = 0.4;
 var minval=parent.minval;
 var maxval=parent.maxval;
 var fitems=parent.fitems;
+var scalesize=0.3;
 var _data = [];
 var konsoli=[];
 var diagram = {
 	set_dimensions: function(width, height, scale) {
-		var width = width || 500,
-			height = height || 500,
+		var width = width || 800,
+			height = height || 800,
 			outer_radius = Math.min(width, height) / 2 - 10.0,
 			scale = scale || 0.5;
 		
@@ -229,7 +237,7 @@ var diagram = {
 		var container = d3.select("." + diagram.opts.container_class);
 		container.selectAll("svg").remove();
 		var target_width = parseFloat(d3.select(container.node().parentNode).style("width")) / 1.4;
-		var scale = 0.50;
+		var scale = scalesize;
 		diagram.set_dimensions(target_width, diagram.opts.hw_ratio * target_width, scale)
 		diagram.elements.svg = container.append("svg")
 				.attr("width", diagram.dimensions.width * 2 * diagram.dimensions.scale)
@@ -394,8 +402,8 @@ $(function () {
         grid: true,
         min: -1.0,
         max: 1.0,
-        from: -0.3,
-        to: 0.3,
+        from: -1.0,
+        to: 0.4,
         step: 0.01
         });
 });
@@ -419,6 +427,20 @@ diagram.render();
 valinnat(["D"],mini,maxi);
 }
 
+function valitse3(items) {
+scalesize=scalesize+items;
+div.style.fontSize = "25px";
+diagram.render();
+
+}
+
+function valitse4(items) {
+scalesize=scalesize+items;
+div.style.fontSize = "35px";
+diagram.render();
+
+}
+
 
 function valinnat(items, mini, maxi) {
 konsoli=[];
@@ -440,7 +462,7 @@ var sitems=items;
 	}
 	
 //valinnat(fitems,minval,maxval);
-valinnat(["D"],-0.3,0.99);
+valinnat(["D"],-1.0,0.4);
 
 </script>
 </body>
