@@ -29,7 +29,7 @@ path.chord {
     font-size: 20px;
     	border-radius: 3px;
     	/*box-shadow: 0 0 5px #999;*/
-    	padding: 40px;
+    	padding: 30px;
     	pointer-events: 'none';
     	background-color: #fff;
     	position: absolute;
@@ -54,13 +54,10 @@ path.chord {
 
 <div class="container">
   <button onclick="valitse3(0.05)">Chord size +</button>
-  <button onclick="valitse4(-0.05)">Chord size -</button>
+  <button onclick="valitse3(-0.05)">Chord size -</button>
+  <button onclick="valitse4('25px')">Font size +</button>
+  <button onclick="valitse4('20px')">Font size -</button>
 </div>
-
-
-
-
-
 
 <div class='walkthrough'>
   <div class='walkthrough-pagination'>
@@ -166,14 +163,14 @@ var maxi = 0.4;
 var minval=parent.minval;
 var maxval=parent.maxval;
 var fitems=parent.fitems;
-var scalesize=0.3;
+var scalesize=0.4;
 var _data = [];
 var konsoli=[];
 var diagram = {
 	set_dimensions: function(width, height, scale) {
-		var width = width || 800,
-			height = height || 800,
-			outer_radius = Math.min(width, height) / 2 - 10.0,
+		var width = width || 900,
+			height = height || 900,
+			outer_radius = Math.min(width, height) / 3 - 10.0,
 			scale = scale || 0.5;
 		
 		diagram.dimensions = {
@@ -427,20 +424,18 @@ diagram.render();
 valinnat(["D"],mini,maxi);
 }
 
+
 function valitse3(items) {
 scalesize=scalesize+items;
-div.style.fontSize = "25px";
 diagram.render();
 
 }
 
 function valitse4(items) {
-scalesize=scalesize+items;
-div.style.fontSize = "35px";
+div.style.fontSize = items;
 diagram.render();
 
 }
-
 
 function valinnat(items, mini, maxi) {
 konsoli=[];
