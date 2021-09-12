@@ -277,14 +277,14 @@ var maxi = 0.4;
 var minval=parent.minval;
 var maxval=parent.maxval;
 var fitems=parent.fitems;
-var scalesize=0.6;
+var scalesize=0.5;
 var _data = [];
 var konsoli=[];
 var diagram = {
 	set_dimensions: function(width, height, scale) {
 		var width = width || 900,
 			height = height || 900,
-			outer_radius = Math.min(width, height) / 3 - 10.0,
+			outer_radius = Math.min(width, height) / 2.5 - 10.0,
 			scale = scale || 0.5;
 		
 		diagram.dimensions = {
