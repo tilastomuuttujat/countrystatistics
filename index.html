@@ -1,71 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-	<script src="https://d3js.org/d3.v3.min.js"></script>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="./style.css">
+  	<script src="https://d3js.org/d3.v3.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 	<script src="colorbrewer.js"></script>
 	<link rel="stylesheet" href="ion.rangeSlider.min.css">
-    <link rel="stylesheet" href="./style.css">
     <script src="ion.rangeSlider.min.js"></script>
     <script src="./script.js"></script>
-
-	<style>
+<style>
 a {
   color: yellow;
 }
-a:link {
-  text-decoration: none;
-}
-path {
-	stroke: #000;
-	stroke-width: 0.5px;
-}
-
-path.chord {
-	stroke-width: 0.1px;
-	fill-opacity: 0.8;
-}
-
 #div {
-    font-size: 20px;
-    	border-radius: 3px;
-    	/*box-shadow: 0 0 5px #999;*/
-    	padding: 30px;
-    	pointer-events: 'none';
-    	background-color: #fff;
-    	position: absolute;
-    }
+  font-size: 20px;
+  border-radius: 3px;
+  /*box-shadow: 0 0 5px #999;*/
+  padding: 30px;
+  pointer-events: 'none';
+  background-color: #fff;
+  position: absolute;
+}
+
+.side-navbar {
+  width: 180px;
+  height: 35%;
+  position: fixed;
+  margin-left: -300px;
+  background-color: #780901;
+  transition: 0.5s;
+}
+
+.my-container {
+  transition: 0.4s;
+}
+
+.active-nav {
+  margin-left: 0;
+}
+
+.active-cont {
+  margin-left: 180px;
+}
+
+#menu-btn {
+  background-color: rgba(16,9,1,0.636);
+  color: #fff;
+  margin-left: -62px;
+}
+
+.my-container input {
+  border-radius: 2rem;
+  padding: 2px 20px;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.radio-inline__input {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+}
+
+.radio-inline__label {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin-right: 18px;
+    border-radius: 3px;
+    transition: all .2s;
+    font-size: 12px;
+}
+
+.radio-inline__input:checked + .radio-inline__label {
+    background: #B54A4A;
+    color: #fff;
+    text-shadow: 0 0 1px rgba(0,0,0,.7);
+}
+
+.radio-inline__input:focus + .radio-inline__label {
+    outline-color: #4D90FE;
+    outline-offset: -2px;
+    outline-style: auto;
+    outline-width: 5px;
+}
 </style>
-</head>
+  </head>
 
-
-<body>
-	<div class="demo__body">
+  <body>
+  	<div class="demo__body">
     <input id="demo_4" type="text" name="" value="" onChange="valitse2($(this).val())">
     </div>
-    
-    
-    <div class="container">
-<button onclick="valitse1('E')">unhappy (0-4)</button>
-<button onclick="valitse1('B')">happy (8-9)</button>
-<button onclick="valitse1('D')">extremely happy (10)</button>
-</div>
 
+<div id="div" class="ext-chord"></div>
 <button class='open-walkthrough'>Instructions</button>
+    <div
+      class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column"
+      id="sidebar">
+      <ul class="nav flex-column text-white w-100">
+        <a href="#" class="nav-link h3 text-white my-2">Settings</a>
+        <li>
+        <label>Indicator</label>
+      <fieldset>
+  <input id="item-1" class="radio-inline__input" type="radio" name="accessible-radio" value="item-1" onclick="valitse1('E')"/>
+  <label class="radio-inline__label" for="item-1">
+      unhappy (0-4)
+  </label>
+  <input id="item-2" class="radio-inline__input" type="radio" name="accessible-radio" value="item-2" onclick="valitse1('B')" checked="checked"/>
+  <label class="radio-inline__label" for="item-2">
+      happy (8-9)
+  </label>
+  <input id="item-3" class="radio-inline__input" type="radio" name="accessible-radio" value="item-3" onclick="valitse1('D')"/>
+  <label class="radio-inline__label" for="item-3">
+      extremely happy (10)
+  </label>
+</fieldset>
+        </li>
+        <li>
+        <label>Chord size</label>
+      <fieldset>
+  <input id="item-4" class="radio-inline__input" type="radio" name="accessible-radio1" value="item-4" onclick="valitse3(-0.05)" />
+  <label class="radio-inline__label" for="item-4">
+      -
+  </label>
+  <input id="item-5" class="radio-inline__input" type="radio" name="accessible-radio1" value="item-5" onclick="valitse3(0.05)" checked="checked"/>
+  <label class="radio-inline__label" for="item-5">
+      +
+  </label>
+</fieldset>
+        </li>
+        <li>
+        <label>Font size</label>
+      <fieldset>
+  <input id="item-6" class="radio-inline__input" type="radio" name="accessible-radio2" value="item-6" onclick="valitse4(-1)" />
+  <label class="radio-inline__label" for="item-6">
+      -
+  </label>
+  <input id="item-7" class="radio-inline__input" type="radio" name="accessible-radio2" value="item-7" onclick="valitse4(1)" checked="checked" />
+  <label class="radio-inline__label" for="item-7">
+      +
+  </label>
+</fieldset>
+        </li>
+      </ul>
+    </div>
 
-<div class="container">
-  <button onclick="valitse3(0.05)">Chord size +</button>
-  <button onclick="valitse3(-0.05)">Chord size -</button>
-  <button onclick="valitse4(1)">Font size +</button>
-  <button onclick="valitse4(-1)">Font size -</button>
-</div>
+    <div class="p-1 my-container active-cont">
+      <nav class="navbar top-navbar navbar-light xbg-light px-5">
+        <a class="btn border-0" id="menu-btn"><i class="bx bx-menu"></i></a>
+      </nav>
+    </div>
 
 <div class='walkthrough'>
   <div class='walkthrough-pagination'>
-    <a class='dot active'></a>
-    <a class='dot'></a>
-    <a class='dot'></a>
-    <a class='dot'></a>
-    <a class='dot'></a>
+  <a class='dot active'></a>
+  <a class='dot'></a>
+  <a class='dot'></a>
+  <a class='dot'></a>
+  <a class='dot'></a>
   </div>
   <div class='walkthrough-body'>
     <ul class='screens animate'>
@@ -108,7 +205,7 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
           How to use
           <br>chord diagram?</br>
         </h3>
-        <p>The chord diagram is showing relation between different indicators. All results are related only to happy people.
+        <p>The chord diagram is showing relation between different indicators. You can select the main indicator on the right, under settings.
         </p>
         <p>
         Simple view the relations associated with an individual indicator by clicking the color wheel button next to the desired title.
@@ -139,8 +236,9 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
         <p>Example:
 <br>1. Set the right slider to 1 
 <br>2. Set the left slider to -0.4
-<br>3. Click the color button next to the "Nationalist" topic
-<br>4. The following indicators have negative relationships with the "Nationalist", if the probability is set over 40%.</p>
+<br>3. Select "extremely happy (10) on the left
+<br>4. Click the color button next to the "Nationalist" topic
+<br>5. The following indicators have negative relationships with the "Nationalist", if the probability is set over 40%.</p>
       </li>
     </ul>
     <button class='prev-screen'>
@@ -155,17 +253,31 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
     <button class='button finish close' disabled='true'>Finish</button>
   </div>
 </div>
-<!-- partial -->
-	<div id="div" class="ext-chord"></div>
-<script>
-var fonts = ["15px", "17px", "19px", "21px", "23px", "25px", "27px", "29px", "31px", "33px", "35px"];
+
+
+
+
+
+    <!-- bootstrap js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <!-- custom js -->
+    <script>
+      var menu_btn = document.querySelector("#menu-btn");
+      var sidebar = document.querySelector("#sidebar");
+      var container = document.querySelector(".my-container");
+      menu_btn.addEventListener("click", () => {
+        sidebar.classList.toggle("active-nav");
+        container.classList.toggle("active-cont");
+      });
+      var fonts = ["15px", "17px", "19px", "21px", "23px", "25px", "27px", "29px", "31px", "33px", "35px"];
 var fontti = 5;
 var mini = -1.0;
 var maxi = 0.4;
 var minval=parent.minval;
 var maxval=parent.maxval;
 var fitems=parent.fitems;
-var scalesize=0.4;
+var scalesize=0.6;
 var _data = [];
 var konsoli=[];
 var diagram = {
@@ -423,7 +535,7 @@ function valitse2(items) {
 mini = items.substr(0,items.indexOf(";"));
 maxi = items.substr(items.indexOf(";")+1,4);
 diagram.render();
-valinnat(["D"],mini,maxi);
+valinnat(["B"],mini,maxi);
 }
 
 
@@ -467,8 +579,7 @@ var sitems=items;
 	}
 	
 //valinnat(fitems,minval,maxval);
-valinnat(["D"],-1.0,0.4);
-
-</script>
-</body>
+valinnat(["B"],-1.0,0.4);
+    </script>
+  </body>
 </html>

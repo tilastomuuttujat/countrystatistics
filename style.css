@@ -8,10 +8,10 @@ body {
   align-items: center;
 
   
-  width: 100vw;
-  height: 100vh;
+  /*width: 100vw;
+  height: 100vh;*/
   
-  overflow: hidden;
+  /*overflow: hidden;*/
   zbackground: linear-gradient(150deg, #e6d3f9 0%, #e6d3f9 50%, #cea0f1 50%, #cea0f1 100%);
 }
 
@@ -25,7 +25,7 @@ body {
   height: 20px;
   width: 130px;
   position: absolute;
-  top: 11%;
+  top: 10%;
   left: 50%;
   margin-top: -20px;
   margin-left: -60px;
