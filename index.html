@@ -26,7 +26,7 @@ a {
 
 .side-navbar {
   width: 180px;
-  height: 40%;
+  height: 45%;
   position: fixed;
   margin-left: -300px;
   background-color: #780901;
@@ -123,17 +123,21 @@ fieldset {
   <label class="radio-inline__label" for="item-4">
       unionist (10)
   </label>
+      <input id="item-5" class="radio-inline__input" type="radio" name="accessible-radio" value="item-5" onclick="valitse1(4)"/>
+  <label class="radio-inline__label" for="item-5">
+      nationalist (10)
+  </label>
 </fieldset>
         </li>
         <li>
         <label>Chord size</label>
       <fieldset>
-  <input id="item-5" class="radio-inline__input" type="radio" name="accessible-radio1" value="item-5" onclick="valitse3(-0.05)" />
-  <label class="radio-inline__label" for="item-5">
+  <input id="item-11" class="radio-inline__input" type="radio" name="accessible-radio1" value="item-11" onclick="valitse3(-0.05)" />
+  <label class="radio-inline__label" for="item-11">
       -
   </label>
-  <input id="item-6" class="radio-inline__input" type="radio" name="accessible-radio1" value="item-6" onclick="valitse3(0.05)" checked="checked"/>
-  <label class="radio-inline__label" for="item-6">
+  <input id="item-12" class="radio-inline__input" type="radio" name="accessible-radio1" value="item-12" onclick="valitse3(0.05)" checked="checked"/>
+  <label class="radio-inline__label" for="item-12">
       +
   </label>
 </fieldset>
@@ -141,12 +145,12 @@ fieldset {
         <li>
         <label>Font size</label>
       <fieldset>
-  <input id="item-7" class="radio-inline__input" type="radio" name="accessible-radio2" value="item-7" onclick="valitse4(-1)" />
-  <label class="radio-inline__label" for="item-7">
+  <input id="item-13" class="radio-inline__input" type="radio" name="accessible-radio2" value="item-13" onclick="valitse4(-1)" />
+  <label class="radio-inline__label" for="item-13">
       -
   </label>
-  <input id="item-8" class="radio-inline__input" type="radio" name="accessible-radio2" value="item-8" onclick="valitse4(1)" checked="checked" />
-  <label class="radio-inline__label" for="item-8">
+  <input id="item-14" class="radio-inline__input" type="radio" name="accessible-radio2" value="item-14" onclick="valitse4(1)" checked="checked" />
+  <label class="radio-inline__label" for="item-14">
       +
   </label>
 </fieldset>
@@ -274,8 +278,8 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
         sidebar.classList.toggle("active-nav");
         container.classList.toggle("active-cont");
       });
-      var files = ["E", "B", "D", "A"];
-      var file = [0, 1, 2, 3];
+      var files = ["E", "B", "D", "A", "C"];
+      var file = [0, 1, 2, 3, 4];
       var fil = 2;
       var fonts = ["15px", "17px", "19px", "21px", "23px", "25px", "27px", "29px", "31px", "33px", "35px"];
 var fontti = 5;
