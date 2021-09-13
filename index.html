@@ -107,19 +107,19 @@ fieldset {
         <li>
         <label>Indicator</label>
       <fieldset>
-  <input id="item-1" class="radio-inline__input" type="radio" name="accessible-radio" value="item-1" onclick="valitse1('E')"/>
+  <input id="item-1" class="radio-inline__input" type="radio" name="accessible-radio" value="item-1" onclick="valitse1(0)"/>
   <label class="radio-inline__label" for="item-1">
       unhappy (0-4)
   </label>
-  <input id="item-2" class="radio-inline__input" type="radio" name="accessible-radio" value="item-2" onclick="valitse1('B')" checked="checked"/>
+  <input id="item-2" class="radio-inline__input" type="radio" name="accessible-radio" value="item-2" onclick="valitse1(1)" checked="checked"/>
   <label class="radio-inline__label" for="item-2">
       happy (8-9)
   </label>
-  <input id="item-3" class="radio-inline__input" type="radio" name="accessible-radio" value="item-3" onclick="valitse1('D')"/>
+  <input id="item-3" class="radio-inline__input" type="radio" name="accessible-radio" value="item-3" onclick="valitse1(2)"/>
   <label class="radio-inline__label" for="item-3">
       extremely happy (10)
   </label>
-    <input id="item-4" class="radio-inline__input" type="radio" name="accessible-radio" value="item-4" onclick="valitse1('A')"/>
+    <input id="item-4" class="radio-inline__input" type="radio" name="accessible-radio" value="item-4" onclick="valitse1(3)"/>
   <label class="radio-inline__label" for="item-4">
       unionist (10)
   </label>
@@ -274,6 +274,9 @@ The survey measures the attitudes, beliefs and behaviour patterns of diverse pop
         sidebar.classList.toggle("active-nav");
         container.classList.toggle("active-cont");
       });
+      var files = ["E", "B", "D", "A"];
+      var file = [0, 1, 2, 3];
+      var fil = 2;
       var fonts = ["15px", "17px", "19px", "21px", "23px", "25px", "27px", "29px", "31px", "33px", "35px"];
 var fontti = 5;
 var mini = -1.0;
@@ -281,7 +284,7 @@ var maxi = 0.4;
 var minval=parent.minval;
 var maxval=parent.maxval;
 var fitems=parent.fitems;
-var scalesize=0.5;
+var scalesize=0.75;
 var _data = [];
 var konsoli=[];
 var diagram = {
@@ -367,7 +370,7 @@ var diagram = {
 				)
 				
 		d3.select(window).on("resize", function() {
-			console.log("resized");
+			//console.log("resized");
 			diagram.render();
 		});
 	},
@@ -529,8 +532,10 @@ function valitse1(items) {
 //xfilet = filet;
 //mini = items.substr(0,items.indexOf(";"));
 //maxi = items.substr(items.indexOf(";")+1,4);
+fil = items;
 diagram.render();
-valinnat([items],mini,maxi);
+valinnat([files[file[fil]]],mini,maxi);
+//console.log(files,file,fil);
 }
 
 function valitse2(items) {
@@ -539,7 +544,7 @@ function valitse2(items) {
 mini = items.substr(0,items.indexOf(";"));
 maxi = items.substr(items.indexOf(";")+1,4);
 diagram.render();
-valinnat(["B"],mini,maxi);
+valinnat([files[file[fil]]],mini,maxi);
 }
 
 
