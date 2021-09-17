@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type='text/css'>
+		<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+		  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300italic,400italic,600italic,700italic,800italic,300' rel='stylesheet' type='text/css'><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+		  <link rel="stylesheet" href="./hstyle.css">
+		<style type="text/css">
+		body {
+		  /*overflow: hidden;*/
+		  margin: 0;
+		  font-size: 14px;
+		  font-family: "Helvetica Neue", Helvetica;
+		}
+
+		div.tooltip {
+			position: absolute;
+			top: 100px;
+			left: 100px;
+		  -moz-border-radius:5px;
+			border-radius: 5px;
+		  border: 2px solid #000;
+		  background: #fff;
+			opacity: .9;
+		  color: black;
+			padding: 10px;
+			width: 300px;
+			font-size: 12px;
+			z-index: 10;
+		}
+
+		div.tooltip .title {
+			font-size: 13px;
+		}
+
+		div.tooltip .name {
+		  font-weight:bold;
+		}
+
+		#footer {
+				  position: absolute;
+				  top: 0;
+				  z-index: 1;
+				  display: block;
+				  font-size: 30px;
+				  font-weight: 300;
+				  text-shadow: 0 1px 0 #fff;
+				  top: 30px;
+				  left: 30px;
+				  text-align: left;
+				}
+
+
+
+				#owner{
+				  position: absolute;
+				  z-index: 1;
+				  display: block;
+				  font-weight: 300;
+				  text-shadow: 0 1px 0 #fff;
+				  top: 550px;
+				  left: 30px;
+				  text-align: left;
+				  color: #474747;
+				  padding-bottom: 20px;
+				  font-size: 10px;
+				}
+
+				#SideText{
+					font-family: "Helvetica Neue", Helvetica;
+				  position: absolute;
+				  display: block;
+				  font-size: 12px;
+				  color: #474747;
+				  top: 220px;
+				  left: 60px;
+				  width: 850px;
+					font-weight: 300;
+				  text-shadow: 0 1px 0 #fff;
+				}
+
+				#BelowLeftText{
+				  position: absolute;
+				  font-size: 14px;
+				  color: #474747;
+				  top: 180px;
+				  left: 50px;
+				  width: 110px;
+					text-align: center;
+					font-weight: 500;
+				  text-shadow: 0 1px 0 #fff;
+				}
+
+
+				#BelowRightText{
+				  position: absolute;
+				  font-size: 14px;
+				  color: #474747;
+				  top: 180px;
+					left: 780px;
+  				width: 110px;
+					text-align: center;
+					font-weight: 500;
+				  text-shadow: 0 1px 0 #fff;
+				}
+
+				line {
+				  stroke: #000;
+				  stroke-width: 1.px;
+				}
+
+				.hint {
+				  position: absolute;
+				  left: 0;
+				  width: 900px;
+				  font-size: 12px;
+				  color: #999;
+				}
+
+				.instructions {
+				  position: absolute;
+					top: 80px;
+				  left: 0;
+				  width: 900px;
+				  font-size: 14px;
+					text-align: center;
+				}
+
+				text {
+				  font-size: 10px;
+				}
+
+				.titles{
+				  font-size: 14px;
+				}
+
+				.annotate{
+				  font-size: 11px;
+				  fill: #474747;
+				}
+
+				path.chord {
+				  fill-opacity: .80;
+				}
+
+				.pTitle {
+				   font-size: 16px;
+				   text-shadow: 0 1px 0 #fff;
+				   fill: #474747;
+				   font-weight: bold;
+				}
+
+				.survey {
+				  font-size: 10px;
+				}
+
+				#buttons {
+					position: absolute;
+					top: 180px;
+					left: 30px;
+					display:inline-block;
+					 padding:0.35em 1.2em;
+					 border:0.1em solid #FFFFFF;
+					 margin:0 0.3em 0.3em 0;
+					 border-radius:0.12em;
+					 box-sizing: border-box;
+					 text-align:center;
+					 transition: all 0.2s;
+				}
+
+				#colorLegend {
+					position: absolute;
+					top: 250px;
+					left: 530px;
+					width: 380px;
+					display:inline-block;
+					font-weight: 200;
+				  text-shadow: 0 1px 0 #fff;
+
+				}
+
+				#titleColorLegend {
+					position: absolute;
+					top: 0px;
+					left: 10px;
+					width: 90px;
+					display:inline-block;
+					text-align: center;
+					font-weight: 400;
+				  text-shadow: 0 1px 0 #fff;
+				}
+
+				#leftColorLegend {
+					position: absolute;
+					top: 0px;
+					left: 118px;
+					width: 80px;
+					display:inline-block;
+					text-align: center;
+					font-weight: 200;
+				  text-shadow: 0 1px 0 #fff;
+				}
+
+				#rightColorLegend {
+					position: absolute;
+					top: 0px;
+					left: 285px;
+					width: 80px;
+					display:inline-block;
+					text-align: center;
+					font-weight: 200;
+				  text-shadow: 0 1px 0 #fff;
+				}
+
+				#sizeLegend {
+					position: absolute;
+					top: 250px;
+					left: 50px;
+					width: 380px;
+					display:inline-block;
+					font-weight: 200;
+					text-shadow: 0 1px 0 #fff;
+
+				}
+
+				#titleSizeLegend {
+					position: absolute;
+					top: 0px;
+					left: 10px;
+					width: 90px;
+					display:inline-block;
+					text-align: center;
+					font-weight: 400;
+					text-shadow: 0 1px 0 #fff;
+				}
+
+				#leftSizeLegend {
+					position: absolute;
+					top: 0px;
+					left: 118px;
+					width: 80px;
+					display:inline-block;
+					text-align: center;
+					font-weight: 200;
+					text-shadow: 0 1px 0 #fff;
+				}
+
+				#rightSizeLegend {
+					position: absolute;
+					top: 0px;
+					left: 315px;
+					width: 80px;
+					display:inline-block;
+					text-align: center;
+					font-weight: 200;
+					text-shadow: 0 1px 0 #fff;
+				}
+
+				#chart {
+					position: absolute;
+					top: 60px;
+					left: 90px;
+					display:inline-block;
+					 padding:0.35em 1.2em;
+					 margin:0 0.3em 0.3em 0;
+					 border-radius:0.12em;
+					 box-sizing: border-box;
+					 text-decoration:none;
+					 transition: all 0.2s;
+				}
+
+				#prettytooltip {
+				position: absolute;
+				width: 200px;
+				height: auto;
+				padding: 10px;
+				background-color: white;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+				-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				box-shadow: 4px 4px 10px rgba(0, 100, 100, 0.4);
+				pointer-events: none;
+			}
+
+			#prettytooltip.hidden {
+				display: none;
+			}
+
+			#prettytooltip p {
+				margin: 0;
+				font-family: sans-serif;
+				font-size: 16px;
+				line-height: 20px;
+			}
+		</style>
+				<svg width="960" height="300"></svg>
+			</head>
+				<body>
+<div class="instructions">
+<span id="variable-buttons">Click on a variable button below to see how it is related to happiness. </br></span>
+<span id="mouse-bubble">Mouse over a bubble to identify country. </br></span>
+<span id="bubble-click">Double-click on a bubble to highlight it.</span>
+</div>
+	<div class="example">
+    <ul class="listbox w60 h30" data-selectbox tabindex="-1">
+    <li onclick="valitse1(3)" class="listitem"><a class="listitem-target">Life Ladder</a></li>
+    <li onclick="valitse1(4)" class="listitem"><a class="listitem-target">Log GDP per capita</a></li>
+    <li onclick="valitse1(5)" class="listitem"><a class="listitem-target">Social support</a></li>
+    <li onclick="valitse1(6)" class="listitem"><a class="listitem-target">Healthy life expectancy at birth</a></li>
+    <li onclick="valitse1(7)" class="listitem"><a class="listitem-target">Freedom to make life choices</a></li>
+    <li onclick="valitse1(8)" class="listitem"><a class="listitem-target">Generosity</a></li>
+    <li onclick="valitse1(9)" class="listitem"><a class="listitem-target">Perceptions of corruption</a></li>
+    <li onclick="valitse1(10)" class="listitem"><a class="listitem-target">Positive affect</a></li>
+    <li onclick="valitse1(11)" class="listitem"><a class="listitem-target">Negative affect</a></li>
+    <li onclick="valitse1(12)" class="listitem"><a class="listitem-target">Bottom 10% full-time employees in country, fair earning </a></li>
+    <li onclick="valitse1(13)" class="listitem"><a class="listitem-target">Important to be humble and modest, not draw attention</a></li>
+    <li onclick="valitse1(14)" class="listitem"><a class="listitem-target">Important to be loyal to friends and devote to people close</a></li>
+    <li onclick="valitse1(15)" class="listitem"><a class="listitem-target">Important to be successful and that people recognise achievements</a></li>
+    <li onclick="valitse1(16)" class="listitem"><a class="listitem-target">Important to behave properly</a></li>
+    <li onclick="valitse1(17)" class="listitem"><a class="listitem-target">Important to care for nature and environment</a></li>
+    <li onclick="valitse1(18)" class="listitem"><a class="listitem-target">Important to do what is told and follow rules</a></li>
+    <li onclick="valitse1(19)" class="listitem"><a class="listitem-target">Important to follow traditions and customs</a></li>
+    <li onclick="valitse1(20)" class="listitem"><a class="listitem-target">Important to get respect from others</a></li>
+    <li onclick="valitse1(21)" class="listitem"><a class="listitem-target">Important to have a good time</a></li>
+    <li onclick="valitse1(22)" class="listitem"><a class="listitem-target">Important to help people and care for others well-being</a></li>
+    <li onclick="valitse1(23)" class="listitem"><a class="listitem-target">Important to live in secure and safe surroundings</a></li>
+    <li onclick="valitse1(24)" class="listitem"><a class="listitem-target">Important to make own decisions and be free</a></li>
+    <li onclick="valitse1(25)" class="listitem"><a class="listitem-target">Important to seek adventures and have an exciting life</a></li>
+    <li onclick="valitse1(26)" class="listitem"><a class="listitem-target">Important to seek fun and things that give pleasure</a></li>
+    <li onclick="valitse1(27)" class="listitem"><a class="listitem-target">Important to show abilities and be admired</a></li>
+    <li onclick="valitse1(28)" class="listitem"><a class="listitem-target">Important to think new ideas and being creative</a></li>
+    <li onclick="valitse1(29)" class="listitem"><a class="listitem-target">Important to try new and different things in life</a></li>
+    <li onclick="valitse1(30)" class="listitem"><a class="listitem-target">Important to understand different people</a></li>
+    <li onclick="valitse1(31)" class="listitem"><a class="listitem-target">Most people can be trusted</a></li>
+    <li onclick="valitse1(32)" class="listitem"><a class="listitem-target">Most people try to be fair</a></li>
+    <li onclick="valitse1(33)" class="listitem"><a class="listitem-target">People mostly try to be helpful </a></li>
+    <li onclick="valitse1(34)" class="listitem"><a class="listitem-target">Socially meeting with friends, relatives or colleagues every day</a></li>
+    <li onclick="valitse1(35)" class="listitem"><a class="listitem-target">Important that government is strong and ensures safety</a></li>
+    <li onclick="valitse1(36)" class="listitem"><a class="listitem-target">Important that people are treated equally and have equal opportunities</a></li>
+    <li onclick="valitse1(37)" class="listitem"><a class="listitem-target">Allow many to come and live here from different race</a></li>
+    <li onclick="valitse1(38)" class="listitem"><a class="listitem-target">Allow many to come and live here from poor country</a></li>
+    <li onclick="valitse1(39)" class="listitem"><a class="listitem-target">Allow many to come and live here from same race</a></li>
+    <li onclick="valitse1(40)" class="listitem"><a class="listitem-target">Complete trust in country's parliament</a></li>
+    <li onclick="valitse1(41)" class="listitem"><a class="listitem-target">Complete trust in politicians</a></li>
+    <li onclick="valitse1(42)" class="listitem"><a class="listitem-target">Complete trust in the European parliament</a></li>
+    <li onclick="valitse1(43)" class="listitem"><a class="listitem-target">Complete trust in the legal system </a></li>
+    <li onclick="valitse1(44)" class="listitem"><a class="listitem-target">Complete trust in the police</a></li>
+    <li onclick="valitse1(45)" class="listitem"><a class="listitem-target">Complete trust in the United Nations</a></li>
+    <li onclick="valitse1(46)" class="listitem"><a class="listitem-target">Cultural life enriched by immigrants</a></li>
+    <li onclick="valitse1(47)" class="listitem"><a class="listitem-target">European unification go further</a></li>
+    <li onclick="valitse1(48)" class="listitem"><a class="listitem-target">Everyone in country fair chance to study</a></li>
+    <li onclick="valitse1(49)" class="listitem"><a class="listitem-target">Everyone in country fair chance to work</a></li>
+    <li onclick="valitse1(50)" class="listitem"><a class="listitem-target">Extremely good education</a></li>
+    <li onclick="valitse1(51)" class="listitem"><a class="listitem-target">Extremely good health service</a></li>
+    <li onclick="valitse1(52)" class="listitem"><a class="listitem-target">Extremely satisfied with country democracy</a></li>
+    <li onclick="valitse1(53)" class="listitem"><a class="listitem-target">Extremely satisfied with country economy</a></li>
+    <li onclick="valitse1(54)" class="listitem"><a class="listitem-target">Extremely satisfied with the national government</a></li>
+    <li onclick="valitse1(55)" class="listitem"><a class="listitem-target">Government should reduce differences in income levels</a></li>
+    <li onclick="valitse1(56)" class="listitem"><a class="listitem-target">Government: a great deal </a></li>
+    <li onclick="valitse1(57)" class="listitem"><a class="listitem-target">Immigrants make country better place to live </a></li>
+    <li onclick="valitse1(58)" class="listitem"><a class="listitem-target">Immigration good for the economy</a></li>
+    <li onclick="valitse1(59)" class="listitem"><a class="listitem-target">Political system allows people to have influence on politics</a></li>
+    <li onclick="valitse1(60)" class="listitem"><a class="listitem-target">Political system: a great deal </a></li>
+    <li onclick="valitse1(61)" class="listitem"><a class="listitem-target">Political transparency: a Greta deal </a></li>
+    <li onclick="valitse1(62)" class="listitem"><a class="listitem-target">Remain member of the European Union </a></li>
+    <li onclick="valitse1(63)" class="listitem"><a class="listitem-target">Very emotionally attached to country</a></li>
+    <li onclick="valitse1(64)" class="listitem"><a class="listitem-target">Very emotionally attached to Europe</a></li>
+    <li onclick="valitse1(65)" class="listitem"><a class="listitem-target">Any period of unemployment lasted 12 months or more</a></li>
+    <li onclick="valitse1(66)" class="listitem"><a class="listitem-target">Are or ever been married</a></li>
+    <li onclick="valitse1(67)" class="listitem"><a class="listitem-target">Belong to minority ethnic group in country</a></li>
+    <li onclick="valitse1(68)" class="listitem"><a class="listitem-target">Born in country</a></li>
+    <li onclick="valitse1(69)" class="listitem"><a class="listitem-target">Citizen of country</a></li>
+    <li onclick="valitse1(70)" class="listitem"><a class="listitem-target">Education of father: not completed ISCED level 1 </a></li>
+    <li onclick="valitse1(71)" class="listitem"><a class="listitem-target">Education of father: upper tertiary </a></li>
+    <li onclick="valitse1(72)" class="listitem"><a class="listitem-target">Education of mother: not completed ISCED level 1 </a></li>
+    <li onclick="valitse1(73)" class="listitem"><a class="listitem-target">Education of mother: upper tertiary </a></li>
+    <li onclick="valitse1(74)" class="listitem"><a class="listitem-target">Education of partner: not completed ISCED level 1 </a></li>
+    <li onclick="valitse1(75)" class="listitem"><a class="listitem-target">Education of partner: upper tertiary </a></li>
+    <li onclick="valitse1(76)" class="listitem"><a class="listitem-target">Education: Not completed ISCED level 1 </a></li>
+    <li onclick="valitse1(77)" class="listitem"><a class="listitem-target">Education: upper tertiary </a></li>
+    <li onclick="valitse1(78)" class="listitem"><a class="listitem-target">Ever had children living in household</a></li>
+    <li onclick="valitse1(79)" class="listitem"><a class="listitem-target">Ever lived with a partner, without being married</a></li>
+    <li onclick="valitse1(80)" class="listitem"><a class="listitem-target">Extremely happy </a></li>
+    <li onclick="valitse1(81)" class="listitem"><a class="listitem-target">Extremely satisfied with life</a></li>
+    <li onclick="valitse1(82)" class="listitem"><a class="listitem-target">Feel closer to a particular party than all other parties</a></li>
+    <li onclick="valitse1(83)" class="listitem"><a class="listitem-target">Feeling very safe of safety of walking alone in local area after dark</a></li>
+    <li onclick="valitse1(84)" class="listitem"><a class="listitem-target">Household's total net income, 10th decile</a></li>
+    <li onclick="valitse1(85)" class="listitem"><a class="listitem-target">Planning for future as much as possible</a></li>
+    <li onclick="valitse1(86)" class="listitem"><a class="listitem-target">Very close to party</a></li>
+    <li onclick="valitse1(87)" class="listitem"><a class="listitem-target">Very good subjective general health</a></li>
+    <li onclick="valitse1(88)" class="listitem"><a class="listitem-target">Very interested in politics</a></li>
+    <li onclick="valitse1(89)" class="listitem"><a class="listitem-target">Very religious</a></li>
+    <li onclick="valitse1(90)" class="listitem"><a class="listitem-target">Voted last national election</a></li>
+    <li onclick="valitse1(91)" class="listitem"><a class="listitem-target">Confident that justice always prevails over injustice</a></li>
+    <li onclick="valitse1(92)" class="listitem"><a class="listitem-target">Differences in wealth in country, fair</a></li>
+    <li onclick="valitse1(93)" class="listitem"><a class="listitem-target">Top 10% full-time employees in country, fair earning </a></li>
+    <li onclick="valitse1(94)" class="listitem"><a class="listitem-target">Influence decision to recruit in country: person has immigrant background</a></li>
+    <li onclick="valitse1(95)" class="listitem"><a class="listitem-target">Influence decision to recruit in country: person knows someone in organisation</a></li>
+    <li onclick="valitse1(96)" class="listitem"><a class="listitem-target">Influence decision to recruit in country: person's gender</a></li>
+    <li onclick="valitse1(97)" class="listitem"><a class="listitem-target">Influence decision to recruit in country: person's knowledge and skills</a></li>
+    <li onclick="valitse1(98)" class="listitem"><a class="listitem-target">Influence decision to recruit in country: person's on-the-job experience</a></li>
+    <li onclick="valitse1(99)" class="listitem"><a class="listitem-target">Society fair when hard-working people earn more than others</a></li>
+    <li onclick="valitse1(100)" class="listitem"><a class="listitem-target">Society fair when income and wealth is equally distributed</a></li>
+    <li onclick="valitse1(101)" class="listitem"><a class="listitem-target">Society fair when people from families with high social status enjoy privileges</a></li>
+    <li onclick="valitse1(102)" class="listitem"><a class="listitem-target">Society fair when takes care of poor and in need, regardless of what give back</a></li>
+    <li onclick="valitse1(103)" class="listitem"><a class="listitem-target">Discrimination of respondent's group: age</a></li>
+    <li onclick="valitse1(104)" class="listitem"><a class="listitem-target">Discrimination of respondent's group: colour or race</a></li>
+    <li onclick="valitse1(105)" class="listitem"><a class="listitem-target">Discrimination of respondent's group: disability</a></li>
+    <li onclick="valitse1(106)" class="listitem"><a class="listitem-target">Discrimination of respondent's group: ethnic group</a></li>
+    <li onclick="valitse1(107)" class="listitem"><a class="listitem-target">Discrimination of respondent's group: gender</a></li>
+    <li onclick="valitse1(108)" class="listitem"><a class="listitem-target">Discrimination of respondent's group: language</a></li>
+    <li onclick="valitse1(109)" class="listitem"><a class="listitem-target">Discrimination of respondent's group: nationality</a></li>
+    <li onclick="valitse1(110)" class="listitem"><a class="listitem-target">Discrimination of respondent's group: religion</a></li>
+    <li onclick="valitse1(111)" class="listitem"><a class="listitem-target">Discrimination of respondent's group: sexuality</a></li>
+    <li onclick="valitse1(112)" class="listitem"><a class="listitem-target">Gay and lesbian couples right to adopt children</a></li>
+    <li onclick="valitse1(113)" class="listitem"><a class="listitem-target">Gays and lesbians free to live life as they wish</a></li>
+    <li onclick="valitse1(114)" class="listitem"><a class="listitem-target">Legal marital status: single </a></li>
+    <li onclick="valitse1(115)" class="listitem"><a class="listitem-target">Internet use, every day</a></li>
+    <li onclick="valitse1(116)" class="listitem"><a class="listitem-target">Living: big city </a></li>
+    <li onclick="valitse1(117)" class="listitem"><a class="listitem-target">Living: country village </a></li>
+    <li onclick="valitse1(118)" class="listitem"><a class="listitem-target">Living: Farm or home in countryside</a></li>
+    <li onclick="valitse1(119)" class="listitem"><a class="listitem-target">Living: suburbs or outskirts of big city </a></li>
+    <li onclick="valitse1(120)" class="listitem"><a class="listitem-target">Living: town or small city</a></li>
+    <li onclick="valitse1(121)" class="listitem"><a class="listitem-target">Politically left</a></li>
+    <li onclick="valitse1(122)" class="listitem"><a class="listitem-target">Politically right</a></li>
+  </ul>
+</div>
+		<div id="body">
+			<div id="chart"></div>
+			<div id="BelowLeftText"><p id="less">Min</p></div>
+			<div id="BelowRightText"><p id = "more">Max</p></div>
+				<div id="colorLegend">
+					<svg height="30" width="280">
+						<circle cx="270" cy="15" r="8" stroke="black" stroke-width="0.5" fill="#FEEC09" />
+						<circle cx="240" cy="15" r="8" stroke="black" stroke-width="0.5" fill="#08968D" />
+						<circle cx="210" cy="15" r="8" stroke="black" stroke-width="0.5" fill="#55005D" />
+					</svg>
+					<span id="titleColorLegend">Color legend:</span>
+					<span id="leftColorLegend">Less happy countries</span>
+					<span id="rightColorLegend">More happy countries</span>
+				</div>
+				<div id="sizeLegend">
+					<svg height="60" width="350">
+						<circle cx="295" cy="15" r="15" stroke="black" stroke-width="0.5" fill="grey" />
+						<circle cx="247" cy="15" r="10" stroke="black" stroke-width="0.5" fill="grey" />
+						<circle cx="210" cy="15" r="7" stroke="black" stroke-width="0.5" fill="grey" />
+					</svg>
+					<span id="titleSizeLegend">Size legend:</span>
+					<span id="leftSizeLegend">Smaller population</span>
+					<span id="rightSizeLegend">Bigger population</span>
+				</div>
+
+				<div id="prettytooltip" class="hidden">
+					<p><strong id="country">Country</strong></p>
+					<p><span id="pretty_variable">Score: </span>
+					<span id="pre_symbol"></span>
+					<span id="value">100</span>
+					<span id="post_symbol"></span></p>
+				</div>
+		</div>
+
+<script type="text/javascript">
+var width = 750,
+	height = 250,
+	radius = 10;
+	padding = 100;
+	
+var files = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK", "BL", "BM", "BN", "BO", "BP", "BQ", "BR", "BS", "BT", "BU", "BV", "BW", "BX", "BY", "BZ", "CA", "CB", "CC", "CD", "CE", "CF", "CG", "CH", "CI", "CJ", "CK", "CL", "CM", "CN", "CO", "CP", "CQ", "CR", "CS", "CT", "CU", "CV", "CW", "CX", "CY", "CZ", "DA", "DB", "DC", "DD", "DE", "DF", "DG", "DH", "DI", "DJ", "DK", "DL", "DM", "DN", "DO", "DP", "DQ", "DR", "DS"];
+      
+var extfiles = ["EA", "EB", "EC", "ED", "EE", "EF", "EG", "EH", "EI", "EJ", "EK", "EL", "EM", "EN", "EO", "EP", "EQ", "ER", "ES", "ET", "EU", "EV", "EW", "EX", "EY", "EZ", "FA", "FB", "FC", "FD", "FE", "FF", "FG", "FH", "FI", "FJ", "FK", "FL", "FM", "FN", "FO", "FP", "FQ", "FR", "FS", "FT", "FU", "FV", "FW", "FX", "FY", "FZ", "GA", "GB", "GC", "GD", "GE", "GF", "GG", "GH", "GI", "GJ", "GK", "GL", "GM", "GN", "GO", "GP", "GQ", "GR", "GS", "GT", "GU", "GV", "GW", "GX", "GY", "GZ", "HA", "HB", "HC", "HD", "HE", "HF", "HG", "HH", "HI", "HJ", "HK", "HL", "HM", "HN", "HO", "HP", "HQ", "HR", "HS", "HT", "HU", "HV", "HW", "HX", "HY", "HZ", "IA", "IB", "IC", "ID", "IE", "IF", "IG", "IH", "II", "IJ", "IK", "IL", "IM", "IN", "IO", "IP", "IQ", "IR", "IS"];
+      
+var selected_variable = files[3];
+var selected_variable_scaled = extfiles[3];
+draw();
+
+var svg = d3.select('#chart').append('svg')
+			.attr('width', width)
+			.attr('height', height)
+
+// define a tooltip
+var div = d3.select("body").append("div")
+	.attr("class", "tooltip")
+	.style("opacity", 0);
+
+// formatting the data displayed in the tooltip
+var formatValue = d3.format(".2n");
+
+//var selected_variable = 'D';
+//var selected_variable_scaled = 'ED';
+var pre_symbol = ""
+var post_symbol = ""
+//var pretty_variable = "Happiness score: "
+var pretty_variable = selected_variable;
+var formatValue = d3.format(".2n");
+
+
+function draw(){
+d3.csv('zcountry_data_non_missing.csv', function(data){
+
+
+
+	// define some useful scales
+	var radiusScale = d3.scaleLinear()
+		.domain(d3.extent(data, function(d) { return parseFloat(d.population) }))
+		.range([7, 30]);
+	var scaleColor = d3.scaleSequential()
+  .domain([0, 1])
+  .interpolator(d3.interpolateViridis);;
+	var scaleStroke = d3.scaleOrdinal()
+		.domain(["Scandinavian Europe", "Europe", "Israel", "New Zealand", "NA"])
+		.range(["#338F72", "#73A521", "#C95A2F", "#5A6D98", "#A0A0A0"]);
+	var xScale = d3.scaleLinear()
+		.rangeRound([padding, width - padding])
+
+	// a function to highlight points when clicked
+	var toggleHighlight = (function(){
+		 var current_stroke_width = 0.5
+		 var current_stroke = "black"
+
+	    return function(){
+					current_stroke_width = current_stroke_width == 0.5 ? 3 : 0.5
+					current_stroke = current_stroke == "black" ? "#C40320" : "black"
+	        d3.select(this).style("stroke-width", current_stroke_width)
+						.style("stroke", current_stroke);
+	    }
+	})();
+
+	// set domain for selected variable
+	xScale.domain(d3.extent(data, function(d) { return d[selected_variable_scaled]; }));
+
+
+	function tick(){
+		d3.selectAll('.circ')
+			.attr('cx', function(d){return d.x})
+			.attr('cy', function(d){return d.y})
+	}
+
+
+	var circles = svg.selectAll('.circ')
+		.data(data)
+		.enter().append('circle').classed('circ', true)
+		.attr('r', function(d) { return radiusScale(d.population); })
+		.attr('cx', function(d){ return xScale(d[selected_variable_scaled]); })
+		.attr('cy', function(){ return height/2; })
+		.attr("fill", function(d) { return scaleColor(d.ED); })
+		.attr("stroke", "black")
+		.attr("stroke-width", 0.5)
+		.on('click', toggleHighlight)
+
+
+		circles.on("mouseover", function(d) {
+					d3.select(this)
+						.attr("stroke", "black")
+						.attr("stroke-width", 3);
+
+
+					d3.select("#prettytooltip")
+//       px distance from left edge of svg
+						.style("left", (d3.event.pageX) + "px")
+//       px distance from top edge of svg
+						.style("top", (d3.event.pageY - 90) + "px")
+// 			 update value for label box
+						.select("#country")
+						.text(d.country)
+					d3.select("#prettytooltip")
+						.select("#value")
+						.text(formatValue(d[selected_variable]));
+					d3.select("#prettytooltip")
+						.select("#pretty_variable")
+						.text(pretty_variable);
+					d3.select("#prettytooltip")
+						.select("#post_symbol")
+						.text(post_symbol);
+					d3.select("#prettytooltip")
+						.select("#pre_symbol")
+						.text(pre_symbol);
+
+					//Show the tooltip
+					d3.select("#prettytooltip").classed("hidden", false);
+
+			   })
+			   .on("mouseout", function() {
+
+						//Hide the tooltip
+						d3.select("#prettytooltip").classed("hidden", true);
+						d3.select(this)
+							.attr("fill", function(d) {return scaleColor(d.ED); })
+							.attr("stroke", "black")
+							.attr("stroke-width", 0.5)
+							.attr("r", function(d) { return radiusScale(d.population); });
+			   })
+
+	var simulation = d3.forceSimulation(data)
+		.force('x', d3.forceX(function(d){
+				return xScale(d[selected_variable_scaled])
+			})
+		)
+		.force('y', d3.forceY(height/2).strength(0.03))
+		.force('collide', d3.forceCollide(function(d) { return radiusScale(d.population); }).strength(0.9))
+		.alpha(0.01)
+		.alphaTarget(0.3)
+		.alphaDecay(0.1)
+		.on('tick', tick)
+
+	d3.selectAll('.d_sel').on('click', function(){
+      
+		//selected_variable = this.value;
+		//selected_variable_scaled = 'E' + this.value;
+
+		simulation.force('x', d3.forceX(function(d){
+			return xScale(d[selected_variable_scaled])
+		}))
+
+	})
+
+})
+
+}
+
+
+function draw1(){
+d3.csv('zcountry_data_non_missing.csv', function(data){
+
+
+
+	// define some useful scales
+	var radiusScale = d3.scaleLinear()
+		.domain(d3.extent(data, function(d) { return parseFloat(d.population) }))
+		.range([7, 30]);
+	var scaleColor = d3.scaleSequential()
+  .domain([0, 1])
+  .interpolator(d3.interpolateViridis);;
+	var scaleStroke = d3.scaleOrdinal()
+		.domain(["Scandinavian Europe", "Europe", "Israel", "New Zealand", "NA"])
+		.range(["#338F72", "#73A521", "#C95A2F", "#5A6D98", "#A0A0A0"]);
+		
+
+	var xScale = d3.scaleLinear()
+		.rangeRound([padding, width - padding])
+
+	// a function to highlight points when clicked
+	var toggleHighlight = (function(){
+		 var current_stroke_width = 0.5
+		 var current_stroke = "black"
+
+	    return function(){
+					current_stroke_width = current_stroke_width == 0.5 ? 3 : 0.5
+					current_stroke = current_stroke == "black" ? "#C40320" : "black"
+	        d3.select(this).style("stroke-width", current_stroke_width)
+						.style("stroke", current_stroke);
+	    }
+	})();
+
+	// set domain for selected variable
+	xScale.domain(d3.extent(data, function(d) { return d[selected_variable_scaled]; }));
+
+
+	function tick(){
+		d3.selectAll('.circ')
+			.attr('cx', function(d){return d.x})
+			.attr('cy', function(d){return d.y})
+	}
+
+
+	var circles = svg.selectAll('.circ')
+		.data(data)
+		.enter().append('circle').classed('circ', true)
+		.attr('r', function(d) { return radiusScale(d.population); })
+		.attr('cx', function(d){ return xScale(d[selected_variable_scaled]); })
+		.attr('cy', function(){ return height/2; })
+		.attr("fill", function(d) { return scaleColor(d.ED); })
+		.attr("stroke", "black")
+		.attr("stroke-width", 0.5)
+		.on('click', toggleHighlight)
+
+
+		circles.on("mouseover", function(d) {
+					d3.select(this)
+						.attr("stroke", "black")
+						.attr("stroke-width", 3);
+
+
+					d3.select("#prettytooltip")
+//       px distance from left edge of svg
+						.style("left", (d3.event.pageX) + "px")
+//       px distance from top edge of svg
+						.style("top", (d3.event.pageY - 90) + "px")
+// 			 update value for label box
+						.select("#country")
+						.text(d.country)
+					d3.select("#prettytooltip")
+						.select("#value")
+						.text(formatValue(d[selected_variable]));
+					d3.select("#prettytooltip")
+						.select("#pretty_variable")
+						.text(pretty_variable);
+					d3.select("#prettytooltip")
+						.select("#post_symbol")
+						.text(post_symbol);
+					d3.select("#prettytooltip")
+						.select("#pre_symbol")
+						.text(pre_symbol);
+
+					//Show the tooltip
+					d3.select("#prettytooltip").classed("hidden", false);
+
+			   })
+			   .on("mouseout", function() {
+
+						//Hide the tooltip
+						d3.select("#prettytooltip").classed("hidden", true);
+						d3.select(this)
+							.attr("fill", function(d) {return scaleColor(d.ED); })
+							.attr("stroke", "black")
+							.attr("stroke-width", 0.5)
+							.attr("r", function(d) { return radiusScale(d.population); });
+			   })
+
+	var simulation = d3.forceSimulation(data)
+		.force('x', d3.forceX(function(d){
+				return xScale(d[selected_variable_scaled])
+			})
+		)
+		.force('y', d3.forceY(height/2).strength(0.03))
+		.force('collide', d3.forceCollide(function(d) { return radiusScale(d.population); }).strength(0.9))
+		.alpha(0.01)
+		.alphaTarget(0.3)
+		.alphaDecay(0.1)
+		.on('tick', tick)
+
+	d3.selectAll('.d_sel').on('click', function(){
+      
+		//selected_variable = this.value;
+		//selected_variable_scaled = 'E' + this.value;
+
+		simulation.force('x', d3.forceX(function(d){
+			return xScale(d[selected_variable_scaled])
+		}))
+
+	})
+
+})
+
+}
+
+
+function valitse1(items) {
+//d3.selectAll("#chart > *").remove();
+selected_variable = files[items];
+selected_variable_scaled = extfiles[items];
+
+draw1();
+}
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="./hscript.js"></script>
+</body>
+</html>
